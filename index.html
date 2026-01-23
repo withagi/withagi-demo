@@ -16,7 +16,7 @@
 <body class='max-w-screen-xl mx-auto px-6'>
     <nav class='sticky-header py-8 flex justify-between items-baseline border-b border-stone-200 mb-20'>
         <h1 class='text-4xl font-bold tracking-tight'>THE AURA SHOP</h1>
-        <div id='cart-summary' class='text-xs uppercase tracking-widest font-bold bg-stone-900 text-white px-4 py-2 rounded-full'>Cart / 0.00</div>
+        <div id='cart-summary' class='text-xs uppercase tracking-widest font-bold bg-stone-900 text-white px-4 py-2 rounded-full'>Cart / $0.00</div>
     </nav>
 
     <main class='max-w-4xl mx-auto space-y-32 text-center'>
@@ -31,7 +31,6 @@
             </button>
         </div>
 
-        <!-- Outcome Display (Owner Message) -->
         <div id='owner-insights' class='hidden py-16 px-8 bg-stone-100 border border-stone-200 mb-20 rounded-sm text-left'>
             <div class='flex items-center gap-4 mb-6'>
                 <div class='w-2 h-2 bg-orange-600 rounded-full'></div>
@@ -51,27 +50,27 @@
         async function load() {
             const res = await fetch('/products');
             const products = await res.json();
-            document.getElementById('product-list').innerHTML = products.map(p => 
+            document.getElementById('product-list').innerHTML = products.map(p => `
                 <div class='product-card flex flex-col md:flex-row gap-12 items-center text-left'>
                     <div class='w-full md:w-1/2 aspect-[3/4] overflow-hidden bg-stone-200'>
-                        <img src="{images[p.id]}" class='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'>
+                        <img src="${images[p.id]}" class='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'>
                     </div>
                     <div class='w-full md:w-1/2 space-y-6'>
                         <span class='text-[10px] uppercase tracking-widest text-stone-400'>Limited Edition</span>
-                        <h3 class='text-4xl font-light'>{p.name}</h3>
+                        <h3 class='text-4xl font-light'>${p.name}</h3>
                         <p class='text-stone-500 font-light leading-relaxed'>Handcrafted using traditional methods. Sustainable materials. Timeless design.</p>
                         <div class='flex justify-between items-baseline pt-4'>
-                            <span class='text-2xl font-light font-serif'>{p.price.toFixed(2)}</span>
-                            <button onclick='add({p.price})' class='border-b border-stone-900 pb-1 text-xs uppercase tracking-widest font-bold hover:text-stone-500 hover:border-stone-500 transition-colors'>Add to Cart</button>
+                            <span class='text-2xl font-light font-serif'>$${p.price.toFixed(2)}</span>
+                            <button onclick='add(${p.price})' class='border-b border-stone-900 pb-1 text-xs uppercase tracking-widest font-bold hover:text-stone-500 hover:border-stone-500 transition-colors'>Add to Cart</button>
                         </div>
                     </div>
                 </div>
-            ).join('');
+            `).join('');
         }
 
         function add(price) {
             total += price;
-            document.getElementById('cart-summary').innerText = 'Cart / ' + total.toFixed(2);
+            document.getElementById('cart-summary').innerText = 'Cart / $' + total.toFixed(2);
         }
 
         function checkout() {
