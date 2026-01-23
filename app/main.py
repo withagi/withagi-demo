@@ -1,17 +1,19 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from app.models import Product, Order
+import os
 
 app = FastAPI(title='The Aura Shop API')
 
-# Mock DB
 products = [
     {'id': 1, 'name': 'Artisan Candle', 'price': 25.0, 'inventory': 100},
     {'id': 2, 'name': 'Handwoven Rug', 'price': 150.0, 'inventory': 10}
 ]
 
-@app.get('/')
+@app.get('/', response_class=HTMLResponse)
 def read_root():
-    return {'status': 'active', 'shop': 'The Aura Shop'}
+    with open('index.html', 'r') as f:
+        return f.read()
 
 @app.get('/products')
 def get_products():
