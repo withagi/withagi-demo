@@ -20,9 +20,7 @@
     </nav>
 
     <main class='max-w-4xl mx-auto space-y-32 text-center'>
-        <section id='product-list' class='space-y-32'>
-            <!-- Products injected here -->
-        </section>
+        <section id='product-list' class='space-y-32'></section>
 
         <div class='py-32 border-t border-stone-200 flex flex-col items-center'>
             <h2 class='text-3xl mb-8 font-light italic'>Ready to finalize your selection?</h2>
@@ -43,14 +41,15 @@
     <script>
         let total = 0;
         const images = {
-            1: "https://images.unsplash.com/photo-1602871171824-40a1cd6d45e8?q=80&w=800",
-            2: "https://images.unsplash.com/photo-1580136608260-42d1c49e0571?q=80&w=800"
+            1: "https://placehold.co/800x1200/fdfbf7/1c1917?text=Artisan+Candle",
+            2: "https://placehold.co/800x1200/fdfbf7/1c1917?text=Minimalist+Rug"
         };
 
         async function load() {
             const res = await fetch('/products');
             const products = await res.json();
-            document.getElementById('product-list').innerHTML = products.map(p => `
+            const list = document.getElementById('product-list');
+            list.innerHTML = products.map(p => `
                 <div class='product-card flex flex-col md:flex-row gap-12 items-center text-left'>
                     <div class='w-full md:w-1/2 aspect-[3/4] overflow-hidden bg-stone-200'>
                         <img src="${images[p.id]}" class='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'>
