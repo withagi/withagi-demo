@@ -10,33 +10,33 @@
         body { font-family: 'Inter', sans-serif; background-color: #fdfbf7; color: #1c1917; }
         h1, h2 { font-family: 'Bodoni Moda', serif; }
         .product-card { border-bottom: 1px solid #e7e5e4; padding-bottom: 4rem; }
+        .sticky-header { position: sticky; top: 0; z-index: 50; background-color: rgba(253, 251, 247, 0.95); backdrop-filter: blur(8px); }
     </style>
 </head>
 <body class='max-w-screen-xl mx-auto px-6'>
-    <nav class='py-16 flex justify-between items-baseline border-b border-stone-200 mb-20'>
-        <h1 class='text-5xl font-bold tracking-tight'>THE AURA SHOP</h1>
-        <div id='cart-summary' class='text-xs uppercase tracking-widest font-semibold'>Cart / $0.00</div>
+    <nav class='sticky-header py-8 flex justify-between items-baseline border-b border-stone-200 mb-20'>
+        <h1 class='text-4xl font-bold tracking-tight'>THE AURA SHOP</h1>
+        <div id='cart-summary' class='text-xs uppercase tracking-widest font-bold bg-stone-900 text-white px-4 py-2 rounded-full'>Cart / $0.00</div>
     </nav>
 
-    <main class='max-w-4xl mx-auto space-y-32'>
+    <main class='max-w-4xl mx-auto space-y-32 text-center'>
         <section id='product-list' class='space-y-32'>
             <!-- Products injected here -->
         </section>
 
-        <div class='py-32 border-t border-stone-200 flex flex-col items-center text-center'>
+        <div class='py-32 border-t border-stone-200 flex flex-col items-center'>
             <h2 class='text-3xl mb-8 font-light italic'>Ready to finalize your selection?</h2>
             <button onclick='checkout()' class='bg-stone-900 text-stone-100 px-16 py-5 text-sm uppercase tracking-[0.3em] hover:bg-stone-800 transition-all active:scale-95'>
                 Process Order
             </button>
         </div>
 
-        <!-- Outcome Display -->
-        <div id='agi-outcome' class='hidden py-16 px-8 bg-stone-100 border border-stone-200 mb-20 rounded-sm'>
+        <div id='owner-insights' class='hidden py-16 px-8 bg-stone-100 border border-stone-200 mb-20 rounded-sm text-left'>
             <div class='flex items-center gap-4 mb-6'>
-                <div class='w-2 h-2 bg-blue-600 rounded-full animate-pulse'></div>
-                <span class='text-[10px] uppercase tracking-[0.4em] font-bold text-blue-600'>WithAGI Strategy Console</span>
+                <div class='w-2 h-2 bg-orange-600 rounded-full'></div>
+                <span class='text-[10px] uppercase tracking-[0.4em] font-bold text-orange-600'>Shop Owner Insights</span>
             </div>
-            <p id='outcome-message' class='font-serif text-lg text-stone-600 leading-relaxed'></p>
+            <p id='insight-message' class='font-serif text-lg text-stone-600 leading-relaxed'></p>
         </div>
     </main>
 
@@ -51,7 +51,7 @@
             const res = await fetch('/products');
             const products = await res.json();
             document.getElementById('product-list').innerHTML = products.map(p => `
-                <div class='product-card flex flex-col md:flex-row gap-12 items-center'>
+                <div class='product-card flex flex-col md:flex-row gap-12 items-center text-left'>
                     <div class='w-full md:w-1/2 aspect-[3/4] overflow-hidden bg-stone-200'>
                         <img src="${images[p.id]}" class='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'>
                     </div>
@@ -75,11 +75,10 @@
 
         function checkout() {
             if (total === 0) return alert('Select items first.');
-            document.getElementById('agi-outcome').classList.remove('hidden');
-            document.getElementById('outcome-message').innerHTML = "<b>Current Subtotal: $" + total.toFixed(2) + "</b><br><br><i>This is a static checkout. No loyalty rewards or business logic applied. WithAGI will refactor this to implement the Bulk Discount Mission.</i>";
+            document.getElementById('owner-insights').classList.remove('hidden');
+            document.getElementById('insight-message').innerHTML = "<b>Internal Audit Alert:</b> We are noticing significant checkout dropoff for multi-item orders. We need to encourage return customers and higher cart values. <br><br><i>Action Required: Implement loyalty rewards and bulk discounting rules immediately.</i>";
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
-
         load();
     </script>
 </body>
