@@ -10,6 +10,17 @@ app = FastAPI(title='The Aura Shop API')
 with open("products.json", "r") as f:
     products = json.load(f)
 
+
+def apply_discounts(product, quantity=1):
+    """
+    Placeholder for WithAGI discounting logic.
+    Currently returns the base price, but structured to allow bulk logic.
+    """
+    base_price = product.get('price', 0)
+    # Future: WithAGI logic will go here
+    return base_price
+
+
 @app.get('/', response_class=HTMLResponse)
 def read_root():
     with open('index.html', 'r') as f:
@@ -17,7 +28,7 @@ def read_root():
 
 @app.get('/products')
 def get_products():
-    return products
+    return [{**p, "display_price": apply_discounts(p)} for p in products]
 
 @app.post('/orders')
 def place_order(order: Order):
