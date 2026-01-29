@@ -9,7 +9,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #fdfbf7; color: #1c1917; }
         h1, h2 { font-family: 'Bodoni Moda', serif; }
-        .product-card { border-bottom: 1px solid #e7e5e4; padding-bottom: 4rem; }
+        .product-card { border-bottom: 1px solid #e7e5e4; padding-bottom: 1rem; }
         .sticky-header { position: sticky; top: 0; z-index: 50; background-color: rgba(253, 251, 247, 0.95); backdrop-filter: blur(8px); }
     </style>
 </head>
@@ -19,10 +19,10 @@
         <div id='cart-summary' class='text-xs uppercase tracking-widest font-bold bg-stone-900 text-white px-4 py-2 rounded-full'>Cart / $0.00</div>
     </nav>
 
-    <main class='max-w-4xl mx-auto space-y-32 text-center'>
-        <section id='product-list' class='space-y-32'></section>
+    <main class='max-w-4xl mx-auto space-y-8 text-center'>
+        <section id='product-list' class='space-y-8'></section>
 
-        <div class='py-32 border-t border-stone-200 flex flex-col items-center'>
+        <div class='py-8 border-t border-stone-200 flex flex-col items-center'>
             <h2 class='text-3xl mb-8 font-light italic'>Ready to finalize your selection?</h2>
             <button onclick='checkout()' class='bg-stone-900 text-stone-100 px-16 py-5 text-sm uppercase tracking-[0.3em] hover:bg-stone-800 transition-all active:scale-95'>
                 Process Order
