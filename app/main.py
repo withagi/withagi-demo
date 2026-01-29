@@ -11,14 +11,21 @@ with open("products.json", "r") as f:
     products = json.load(f)
 
 
+
 def apply_discounts(product, quantity=1):
     """
-    Placeholder for WithAGI discounting logic.
-    Currently returns the base price, but structured to allow bulk logic.
+    WithAGI Bulk Discounting Logic.
+    Applies a 20% discount to products with stagnant inventory (<= 15 units).
     """
     base_price = product.get('price', 0)
-    # Future: WithAGI logic will go here
+    inventory = product.get('inventory', 0)
+    
+    # Logic: If inventory is low/stagnant, apply bulk discount
+    if inventory <= 15:
+        return round(base_price * 0.8, 2)
+    
     return base_price
+
 
 
 @app.get('/', response_class=HTMLResponse)
