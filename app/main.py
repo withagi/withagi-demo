@@ -1,3 +1,5 @@
+import json
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from app.models import Product, Order
@@ -5,10 +7,26 @@ import os
 
 app = FastAPI(title='The Aura Shop API')
 
-products = [
-    {'id': 1, 'name': 'Artisan Candle', 'price': 25.0, 'inventory': 100},
-    {'id': 2, 'name': 'Handwoven Rug', 'price': 150.0, 'inventory': 10}
-]
+with open("products.json", "r") as f:
+    products = json.load(f)
+
+
+
+def apply_discounts(product, quantity=1):
+    """
+    WithAGI Bulk Discounting Logic.
+    Applies a 20% discount to products with stagnant inventory (<= 15 units).
+    """
+    base_price = product.get('price', 0)
+    inventory = product.get('inventory', 0)
+    
+    # Logic: If inventory is low/stagnant, apply bulk discount
+    if inventory <= 15:
+        return round(base_price * 0.8, 2)
+    
+    return base_price
+
+
 
 @app.get('/', response_class=HTMLResponse)
 def read_root():
@@ -17,7 +35,7 @@ def read_root():
 
 @app.get('/products')
 def get_products():
-    return products
+    return [{**p, "display_price": apply_discounts(p)} for p in products]
 
 @app.post('/orders')
 def place_order(order: Order):
