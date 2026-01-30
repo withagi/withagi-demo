@@ -63,10 +63,7 @@
 
     <script>
         let total = 0;
-        const images = {
-            1: "https://placehold.co/800x1200/fdfbf7/1c1917?text=Artisan+Candle",
-            2: "https://placehold.co/800x1200/fdfbf7/1c1917?text=Minimalist+Rug"
-        };
+        
 
         async function load() {
             const res = await fetch('/products');
@@ -75,7 +72,7 @@
             list.innerHTML = products.map(p => `
                 <div class='product-card flex flex-col md:flex-row gap-12 items-center text-left'>
                     <div class='w-full md:w-1/2 aspect-[3/4] overflow-hidden bg-stone-200'>
-                        <img src="${images[p.id]}" class='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'>
+                        <img src="${p.image}" class='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'>
                     </div>
                     <div class='w-full md:w-1/2 space-y-6'>
                         <span class='text-[10px] uppercase tracking-widest text-stone-400'>Limited Edition</span>

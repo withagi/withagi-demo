@@ -1,3 +1,4 @@
+from fastapi.staticfiles import StaticFiles
 import json
 import os
 from fastapi import FastAPI, HTTPException
@@ -6,6 +7,7 @@ from app.models import Product, Order
 import os
 
 app = FastAPI(title='The Aura Shop API')
+app.mount('/static', StaticFiles(directory='static'), name='static')
 
 with open("products.json", "r") as f:
     products = json.load(f)
