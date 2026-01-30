@@ -5,7 +5,7 @@
         "price": 25.0,
         "inventory": 50,
         "description": "Hand-poured soy wax candle with essential oils.",
-        "image": "https://images.unsplash.com/photo-1602872030219-3df63824f5cd?auto=format&fit=crop&q=80&w=800"
+        "image": "/static/images/artisan-candle.png"
     },
     {
         "id": 2,
@@ -13,6 +13,6 @@
         "price": 120.0,
         "inventory": 15,
         "description": "Natural fiber rug, woven by local artisans.",
-        "image": "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=800"
+        "image": "/static/images/handwoven-rug.png"
     }
 ]
