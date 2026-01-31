@@ -29,36 +29,55 @@
             </button>
         </div>
 
-        <div id='owner-insights' class='hidden py-12 px-8 bg-stone-50 border border-stone-200 mb-12 rounded-sm shadow-inner text-left'>
-        <div class='flex justify-between items-center mb-8'>
-            <h3 class='text-xl font-light tracking-tight text-stone-900'>Owner Insights</h3>
-            <span class='px-3 py-1 bg-amber-100 text-amber-800 text-[10px] uppercase tracking-widest font-bold rounded-full'>Action Required</span>
-        </div>
-        <div class='grid grid-cols-1 md:grid-cols-2 gap-8 mb-8'>
-            <div class='bg-white p-6 border border-stone-200 rounded-sm shadow-sm'>
-                <div class='text-stone-400 text-[10px] uppercase tracking-widest mb-2'>Inventory Alert</div>
-                <div class='text-lg font-light mb-4'>Handwoven Rug stock is stagnant (15 units).</div>
-                <div class='w-full bg-stone-100 h-1 rounded-full overflow-hidden'>
-                    <div class='bg-amber-500 h-full w-[85%]'></div>
+        
+        
+        
+        <div id='owner-insights' class='hidden fixed bottom-12 right-12 z-[60] max-w-lg w-full animate-in fade-in slide-in-from-bottom-10 duration-700'>
+            <!-- Thought Bubble Tail -->
+            <div class='absolute -bottom-4 right-12 w-8 h-8 bg-indigo-50 rotate-45 border-r border-b border-indigo-100'></div>
+            
+            <div class='bg-indigo-50 border border-indigo-100 shadow-2xl rounded-[2rem] p-10 relative'>
+                <!-- Header Row: Logo and Avatar -->
+                <div class='flex justify-between items-start mb-8'>
+                    <div class='flex flex-col space-y-2'>
+                        <img src='/static/images/withagi_logo.png' class='h-16 w-auto object-contain' alt='WithAGI Logo'>
+                        <span class='text-[10px] uppercase tracking-[0.3em] font-bold text-indigo-400'>Strategic Intent</span>
+                    </div>
+                    
+                    <!-- Shop Owner Avatar (Repositioned to Right) -->
+                    <div class='flex flex-col items-end space-y-2'>
+                        <div class='w-20 h-20 rounded-full border-4 border-white shadow-xl overflow-hidden bg-stone-200'>
+                            <img src='https://api.dicebear.com/7.x/avataaars/svg?seed=Felix' alt='Shop Owner' class='w-full h-full object-cover'>
+                        </div>
+                        <span class='text-[9px] uppercase tracking-widest font-bold text-indigo-300'>Shop Owner</span>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <div class='space-y-4'>
+                    <h3 class='text-xl font-bold text-indigo-950 tracking-tight italic'>"I need to fix this drop-off..."</h3>
+                    
+                    <p id='insight-message' class='text-indigo-900/80 text-base leading-relaxed font-medium'>
+                        I'm noticing that while my low-volume orders are steady, I'm losing almost all of my larger multi-item carts to competitors. 
+                        I need to introduce <b>bulk discounts</b> to keep these customers from falling away and encourage larger cart sizes.
+                    </p>
+                </div>
+                
+                <div class='mt-8 pt-6 border-t border-indigo-100/50 flex justify-between items-center'>
+                    <span class='text-[9px] text-indigo-400 uppercase tracking-widest font-bold'>Internal Monologue</span>
+                    <div class='flex space-x-1'>
+                        <div class='w-1.5 h-1.5 bg-indigo-200 rounded-full'></div>
+                        <div class='w-1.5 h-1.5 bg-indigo-300 rounded-full'></div>
+                        <div class='w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse'></div>
+                    </div>
                 </div>
             </div>
-            <div class='bg-white p-6 border border-stone-200 rounded-sm shadow-sm'>
-                <div class='text-stone-400 text-[10px] uppercase tracking-widest mb-2'>Revenue Opportunity</div>
-                <div class='text-lg font-light mb-4'>Bulk discounting could clear 20% of Artisan Candle stock.</div>
-                <div class='w-full bg-stone-100 h-1 rounded-full overflow-hidden'>
-                    <div class='bg-stone-900 h-full w-[40%]'></div>
-                </div>
+        </div>
+
             </div>
         </div>
-        <button onclick='runOptimization()' class='w-full bg-stone-900 text-white py-4 uppercase tracking-[0.2em] text-xs hover:bg-stone-800 transition-all flex items-center justify-center space-x-3'>
-            <svg class='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>
-            <span>Run WithAGI Optimization</span>
-        </button>
-</div>
-                <span class='text-[10px] uppercase tracking-[0.4em] font-bold text-orange-600'>Shop Owner Insights</span>
-            </div>
-            <p id='insight-message' class='font-serif text-lg text-stone-600 leading-relaxed'></p>
-        </div>
+
+
     </main>
 
     <script>
@@ -95,7 +114,7 @@
         function checkout() {
             if (total === 0) return alert('Select items first.');
             document.getElementById('owner-insights').classList.remove('hidden');
-            document.getElementById('insight-message').innerHTML = "<b>Internal Audit Alert:</b> We are noticing significant checkout dropoff for multi-item orders. We need to encourage return customers and higher cart values. <br><br><i>Action Required: Implement loyalty rewards and bulk discounting rules immediately.</i>";
+            
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
