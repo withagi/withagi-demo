@@ -47,7 +47,7 @@
                     <!-- Shop Owner Avatar (Repositioned to Right) -->
                     <div class='flex flex-col items-end space-y-2'>
                         <div class='w-20 h-20 rounded-full border-4 border-white shadow-xl overflow-hidden bg-stone-200'>
-                            <img src='https://images.unsplash.com/photo-1556155092-490a1ba16284?q=80&w=2070&auto=format&fit=crop' alt='Happy Shop Owner' class='w-full h-full object-cover'>
+                            <img src='https://api.dicebear.com/7.x/avataaars/svg?seed=Felix' alt='Happy Shop Owner' class='w-full h-full object-cover'>
                         </div>
                         <span class='text-[9px] uppercase tracking-widest font-bold text-indigo-300'>Shop Owner</span>
                     </div>
@@ -92,10 +92,7 @@
             list.innerHTML = products.map(p => `
                 <div class='product-card flex flex-col md:flex-row gap-12 items-center text-left'>
                     <div class='w-full md:w-1/2 aspect-[3/4] overflow-hidden bg-stone-200 relative'>
-                        <!-- Bulk Savings Badge -->
-                        <div class='absolute top-4 left-4 z-10'>
-                            <span class='bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg uppercase tracking-wider'>Bulk Savings: 20% OFF 3+</span>
-                        </div>
+                        
                         <img src="${p.image}" class='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'>
                     </div>
                     <div class='w-full md:w-1/2 space-y-6'>
@@ -103,7 +100,10 @@
                         <h3 class='text-4xl font-light'>${p.name}</h3>
                         <p class='text-stone-500 font-light leading-relaxed'>Handcrafted using traditional methods. Sustainable materials. Timeless design.</p>
                         <div class='flex justify-between items-baseline pt-4'>
-                            <span class='text-2xl font-light font-serif'>$${p.price.toFixed(2)}</span>
+                            <div class='flex flex-col'>
+                                <span class='text-2xl font-light font-serif'>$${p.price.toFixed(2)}</span>
+                                <span class='text-[10px] font-bold text-green-600 uppercase tracking-wider mt-1'>Bulk Savings: 20% OFF 3+</span>
+                            </div>
                             <button onclick='add("${p.name}", ${p.price})' class='border-b border-stone-900 pb-1 text-xs uppercase tracking-widest font-bold hover:text-stone-500 hover:border-stone-500 transition-colors'>Add to Cart</button>
                         </div>
                     </div>
@@ -114,16 +114,20 @@
         function add(name, price) {
             cart[name] = (cart[name] || 0) + 1;
             
-            // Recalculate total with bulk discounting (20% off if quantity >= 3)
+            let savings = 0;
             total = Object.keys(cart).reduce((sum, itemName) => {
                 const qty = cart[itemName];
-                const itemPrice = 120.00; // Simplified for demo, or we could pass it
-                // In this demo, we'll apply the discount to the specific price passed
-                const effectivePrice = qty >= 3 ? price * 0.8 : price;
+                const isDiscounted = qty >= 3;
+                const effectivePrice = isDiscounted ? price * 0.8 : price;
+                if (isDiscounted) savings += (price * 0.2 * qty);
                 return sum + (effectivePrice * qty);
             }, 0);
 
-            document.getElementById('cart-summary').innerText = 'Cart / $' + total.toFixed(2);
+            let cartText = 'Cart / $' + total.toFixed(2);
+            if (savings > 0) {
+                cartText += ` <span class='text-green-400 ml-2'>(Saved $${savings.toFixed(2)})</span>`;
+            }
+            document.getElementById('cart-summary').innerHTML = cartText;
         }
 
         function checkout() {
